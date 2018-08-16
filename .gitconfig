@@ -1,0 +1,11 @@
+[user]
+	email = mgbrooks208@gmail.com
+	name = Marc Brooks
+	username = mb208
+[core]
+	editor = vim
+[color]
+	status = true
+	branch = true
+	interactive = true
+	diff = true

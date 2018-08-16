@@ -1,0 +1,43 @@
+# Azure alias
+alias azure-ssh='ssh -i ~/dssg/mbrooks.pem mbrooks@dssg-europe.westeurope.cloudapp.azure.com'
+alias azure-ssh-tun='ssh -i ~/dssg/mbrooks.pem -NfL 8888:localhost:8888  mbrooks@dssg-europe.westeurope.cloudapp.azure.com'
+
+# Aws alias 
+team_pastel_id="i-03ae7601a12d2b702"
+team_pastel_pem="~/nuclei_segmentation/team_pastel.pem"
+
+alias aws-ip='export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$team_pastel_id" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+alias aws-start='aws ec2 start-instances --instance-ids $team_pastel_id && aws ec2 wait instance-running --instance-ids $team_pastel_id && export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$team_pastel_id" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+alias aws-ssh='ssh -i $team_pastel_pem ubuntu@$instanceIp'
+alias aws-stop='aws ec2 stop-instances --instance-ids $team_pastel_id'
+alias aws-ssh-tun='ssh -i $team_pastel_pem -NfL 8888:localhost:8888 ubuntu@$instanceIp' 
+alias aws-state='aws ec2 describe-instances --instance-ids $team_pastel_id --query "Reservations[0].Instances[0].State.Name"'
+
+
+# Back up instance
+team_pastel_id_a="i-045b05ec398fa5a16"
+
+alias aws-ip-a='export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$team_pastel_id_a" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+alias aws-start-a='aws ec2 start-instances --instance-ids $team_pastel_id_a && aws ec2 wait instance-running --instance-ids $team_pastel_id_a && export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$team_pastel_id_a" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+alias aws-ssh-a='ssh -i $team_pastel_pem ubuntu@$instanceIp'
+alias aws-stop-a='aws ec2 stop-instances --instance-ids $team_pastel_id_a'
+alias aws-ssh-tun-a='ssh -i $team_pastel_pem -NfL 8888:localhost:8888 ubuntu@$instanceIp' 
+alias aws-state-a='aws ec2 describe-instances --instance-ids $team_pastel_id_a --query "Reservations[0].Instances[0].State.Name"'
+ 
+
+#alias aws-get-p2='export instanceId=`aws ec2 describe-instances --filters "Name=instance-state-name,Values=stopped,Name=instance-type,Values=p2.xlarge" --query "Reservations[0].Instances[0].InstanceId"` && echo $instanceId'
+#alias aws-get-t2='export instanceId=`aws ec2 describe-instances --filters "Name=instance-state-name,Values=stopped,Name=instance-type,Values=t2.xlarge" --query "Reservations[0].Instances[0].InstanceId"` && echo $instanceId'
+#alias aws-start='aws ec2 start-instances --instance-ids $instanceId && aws ec2 wait instance-running --instance-ids $instanceId && export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$instanceId" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+#alias aws-ip='export instanceIp=`aws ec2 describe-instances --filters "Name=instance-id,Values=$instanceId" --query "Reservations[0].Instances[0].PublicIpAddress"` && echo $instanceIp'
+#alias aws-ssh='ssh -i ~/nuclei_segmentation/team_pastel.pem ubuntu@$instanceIp'
+#alias aws-ssh-tun='ssh -i ~./nuclei_segmentation/team_pastel.pem -NfL 8888:localhost:8888 ubuntu@$instanceIp'
+#alias aws-stop='aws ec2 stop-instances --instance-ids $instanceId'
+#alias aws-state='aws ec2 describe-instances --instance-ids $instanceId --query "Reservations[0].Instances[0].State.Name"'
+#
+
+if [[ `uname` == *"Linux"* ]]
+then
+    # This is linux.  Use xdg-open to open the notebook
+    alias aws-nb='xdg-open http://$instanceIp:8888'
+fi
+
